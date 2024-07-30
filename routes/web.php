@@ -37,3 +37,14 @@ Route::get('/adminPage', [adminController::class, 'index'])->name('admin')->midd
 Route::get('/sellerPage', [adminController::class, 'index'])->name('seller')->middleware('seller');
 
 Route::get('/userPage', [dashboardController::class, 'index'])->name('userPage')->middleware('dashboard');
+
+
+
+Route::prefix('admin')->group( function(){
+    Route::get('/user', [adminController::class, 'index'])->name('admin.user');
+    Route::get('/seller', [adminController::class, 'seller'])->name('admin.seller');
+    Route::get('/products', [adminController::class, 'products'])->name('admin.products');
+    Route::get('/role', [adminController::class, 'role'])->name('admin.role');
+    Route::get('/category', [adminController::class, 'category'])->name('admin.category');
+    Route::post('/category/add', [adminController::class, 'addCategory'])->name('admin.category.store');
+})->middleware('admin');
