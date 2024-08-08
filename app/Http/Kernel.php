@@ -7,6 +7,7 @@ use App\Http\Middleware\checkSellerMiddleware;
 use App\Http\Middleware\dashboardSeperate;
 use App\Http\Middleware\hasRoleInUrl;
 use App\Http\Middleware\roleRegisterMiddleware;
+use App\Http\Middleware\sellerStatus;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -77,5 +78,6 @@ class Kernel extends HttpKernel
         'dashboard' => dashboardSeperate::class,
         'admin' => checkAdminMiddleware::class,
         'seller' => checkSellerMiddleware::class,
+        'sellerStatus' => sellerStatus::class,
     ];
 }

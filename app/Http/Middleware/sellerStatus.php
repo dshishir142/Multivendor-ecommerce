@@ -2,12 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
-class dashboardSeperate
+class sellerStatus
 {
     /**
      * Handle an incoming request.
@@ -16,14 +17,10 @@ class dashboardSeperate
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $role = Auth::user()->getRole->role_name;
-        switch ($role) {
-            case "admin":
-                return redirect('/adminPage');
-            case "seller":
-                return redirect(route('seller.sellerHome'));
-            default:
-                return $next($request);
+        if (Auth::user()->getSellerInfo->isActive != 0) {
+            return $next($request);
         }
+        return redirect()->route('seller.approval');
+        
     }
 }

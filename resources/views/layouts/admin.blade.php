@@ -61,12 +61,9 @@
         @yield('content')
     </div>
 
-    <!-- Bootstrap JavaScript Libraries -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz4fnFO9gybVu5PHGp9shh42hDR5vK6pXyD2/43jK5jQ/jj8M+4K4p6/2g"
-        crossorigin="anonymous"
-    ></script>
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-pZC6egT6NfGrkK36vY9gH9RmA2yCZp/3ZlUllCj3UbsImx5
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+    @stack('image-script')
+</body>
+</html>

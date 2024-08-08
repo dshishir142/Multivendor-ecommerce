@@ -13,7 +13,4 @@ class sellerInfo extends Model
 
     protected $guarded = [];
 
-    protected function getSeller(){
-        return $this->hasOne(User::class);
-    }
 }

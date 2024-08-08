@@ -63,6 +63,15 @@
                                 <label for="shop_photo" class="form-label">Shop Photo</label>
                                 <input type="file" class="form-control" id="shop_photo" name="shop_photo" required>
                             </div>
+
+                            <div>
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{session('error')}}
+                                    </div>
+                                @endif
+                            </div>
+                            
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">Register</button>
                             </div>

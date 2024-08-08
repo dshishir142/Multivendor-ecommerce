@@ -77,12 +77,20 @@ class loginAndRegisterController extends Controller
     public function sellerRegister(Request $request){
         $role_id = 2;
         $seller = new User();
+        $data = User::where('email', $request->email)->first();
+        if($data != ""){
+            return redirect()->back()->with('error', 'Email already in use');
+        }
         $seller -> name = $request -> username;
         $seller -> email = $request -> email;
         $seller -> password = bcrypt($request -> password);
         $seller -> role_id = $role_id;
         $seller -> save();
         $this -> saveSellerInfo($request, $seller->id);
+        
+        Auth::login($seller);
+        session(['user' => $seller, 'role' => 'seller']);
+        return redirect(route('seller.sellerHome'));
     }
 
     public function saveSellerInfo(Request $request, $id){
@@ -93,19 +101,16 @@ class loginAndRegisterController extends Controller
         $sellerInfo -> seller_id = $id;
 
         $file_citizen = $request->file('citizenship_photo');
-        $extension = $file_citizen->getClientOriginalExtension();
-        $filename = time().'.'.$extension;
-        $file_citizen->move('uploads/demo/seller_info/', $filename);
-        $sellerInfo->citizenship_photo = $filename;
+        $citizen_filename = time().'_citizenship'.$file_citizen->getClientOriginalExtension();
+        $file_citizen->move('uploads/demo/seller_info/', $citizen_filename);
+        $sellerInfo->citizenship_photo = $citizen_filename;
 
         $file = $request->file('shop_photo');
-        $extension = $file->getClientOriginalExtension();
-        $filename = time().'.'.$extension;
+        $filename = time().'_shop'.$file->getClientOriginalExtension();
         $file->move('uploads/demo/seller_info/', $filename);
         $sellerInfo->shop_photo = $filename;
 
         $sellerInfo->save();
-        echo "Success";
 
 
     }
